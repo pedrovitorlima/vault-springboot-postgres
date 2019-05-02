@@ -25,24 +25,14 @@ services:
 
   postgres-compose:
     image: postgres
+    build:
+      context: ./postgres
     environment:
       POSTGRES_PASSWORD: "postgres"
     ports:
       - "15432:5432"
     volumes:
-      - /home/scadufax/Development/postgre-docker-data:/var/lib/postgresql/data 
-    networks:
-      - postgres-vault-network
-      
-  pgadmin-compose:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "pedrovitorlima@gmail.com"
-      PGADMIN_DEFAULT_PASSWORD: "postgres"
-    ports:
-      - "16543:80"
-    depends_on:
-      - postgres-compose
+      - ./postgres/data:/var/lib/postgresql/data 
     networks:
       - postgres-vault-network
 
